@@ -15,6 +15,9 @@ import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import java.util.List;
 import java.util.Scanner;
@@ -23,11 +26,14 @@ public class RagNaif {
 
     public static void main(String[] args) {
 
+        configureLogger();
+
         String key = System.getenv("GEMINI_KEY");
         ChatModel model = GoogleAiGeminiChatModel.builder()
                 .apiKey(key)
                 .modelName("gemini-2.5-flash")
                 .temperature(0.2)
+                .logRequestsAndResponses(true)
                 .build();
 
 
@@ -79,4 +85,15 @@ public class RagNaif {
             }
         }
     }
+
+    private static void configureLogger() {
+        Logger packageLogger = Logger.getLogger("dev.langchain4j");
+        packageLogger.setLevel(Level.FINE);
+
+        ConsoleHandler handler = new ConsoleHandler();
+        handler.setLevel(Level.FINE);
+
+        packageLogger.addHandler(handler);
+    }
+
 }
