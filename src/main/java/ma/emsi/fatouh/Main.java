@@ -13,5 +13,9 @@ public class Main {
             // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
             System.out.println("i = " + i);
         }
+        String tavilyKey = System.getenv("TAVILY_KEY");
+
+        System.out.println("TAVILY_KEY = " + tavilyKey);
+
     }
 }
